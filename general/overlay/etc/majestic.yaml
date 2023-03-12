@@ -10,22 +10,22 @@ image:
   luminance: 50
 osd:
   enabled: true
-  template: "%a %e %B %Y %H:%M:%S"
+  template: "%d/%m/%Y %T"
 nightMode:
   enabled: false
   pinSwitchDelayUs: 150
   irSensorPinInvert: false
 records:
-  enabled: true
+  enabled: false
   path: /mnt/mmc/records/%Y/%m/%d/%H.mp4
   maxUsage: 95
 video0:
   enabled: true
   codec: h264
-  size: 1920x1080
+  size: 2560x1440
   fps: 15
   gopMode: normal
-  gopSize: 0.5
+  gopSize: 1
   rcMode: avbr
   bitrate: 2048
 video1:

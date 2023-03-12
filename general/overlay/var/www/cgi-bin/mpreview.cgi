@@ -13,13 +13,14 @@ ipaddr=$(printenv | grep HTTP_HOST | cut -d= -f2 | cut -d: -f1)
 <table border="0" cellpadding="0" cellspacing="0" width="100%" class= "control b3">
   <tr>
     <td width=20>&nbsp;</td>
-    <td width=60><% button "focus-plus.svg" "Focus plus" %><br>
-      <% button "focus-auto.svg" "Focus auto" %><br>
-      <% button "focus-minus.svg" "Focus minus" %></td>
+    <td width=60>
+      <% tbutton "focus-plus.svg" "Focus pluss" %><br>
+      <% tbutton "focus-auto.svg" "Focus auto" %><br>
+      <% tbutton "focus-minus.svg" "Focus minuss" %></td>
     <td width="100%" align=center onClick="fullscreen3(document.documentElement);return false;">&nbsp;</td>
     <td width=60 align="right">
-      <% button "zoom-in.svg" "Zoom in" %><br><br>
-      <% button "zoom-out.svg" "Zoom out" %></td>
+      <% tbutton "zoom-in.svg" "Zoom ins" %><br><br>
+      <% tbutton "zoom-out.svg" "Zoom outs" %></td>
     <td width=20>&nbsp;</td>
   </tr>
 </table>

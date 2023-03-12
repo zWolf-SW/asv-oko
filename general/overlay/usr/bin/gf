@@ -1,4 +1,11 @@
 #!/bin/sh
 
-sleep 0.2 && echo $(cat /tmp/zx);
+while [[ -z $r ]]
+do
+r=$(cat /tmp/zx);
+done 
+echo $r
+
+
+
 

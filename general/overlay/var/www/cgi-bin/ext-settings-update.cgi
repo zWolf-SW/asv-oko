@@ -25,6 +25,10 @@ qapname="00";
 qcmid="0";
 qcmkey="00000000";
 qamkey="00000000";
+qwifif
+qcmidf="0";
+qcmkeyf="00000000";
+
 
 data="$(printenv|grep POST_)"
 IFS=$'\n' # make newlines the only separator
@@ -86,6 +90,12 @@ if [ "$key" == "apname" ]; then
     value="00";
   fi
 fi
+if [ "$key" == "wifif" ]; then
+  if [ "$value" == "" ]; then
+    value="0";
+  fi
+fi
+
 if [ "$key" == "cmid" ]; then
   if [ "$value" == "" ]; then
     value="swit";
@@ -96,6 +106,19 @@ if [ "$key" == "cmkey" ]; then
     value="swit.737";
   fi
 fi
+if [ "$key" == "cmidf" ]; then
+  if [ "$value" == "" ]; then
+    value="swit5G";
+  fi
+fi
+if [ "$key" == "cmkeyf" ]; then
+  if [ "$value" == "" ]; then
+    value="swit.959";
+  fi
+fi
+
+
+
 if [ "$key" == "amkey" ]; then
   if [ "$value" == "" ]; then
     value="10923874";
@@ -156,6 +179,14 @@ if [ "$key" == "cmid" ]; then
    qcmid="$value"; fi
 if [ "$key" == "cmkey" ]; then
    qcmkey="$value"; fi
+
+if [ "$key" == "wifif" ]; then
+   qwifif="$value"; fi
+if [ "$key" == "cmidf" ]; then
+   qcmidf="$value"; fi
+if [ "$key" == "cmkeyf" ]; then
+   qcmkeyf="$value"; fi
+
 if [ "$key" == "amkey" ]; then
    qamkey="$value"; fi
 if [ "$key" == "delay-tr" ]; then
@@ -230,9 +261,18 @@ if [ "$qcmid" != "$(getenv cmid)" ]; then
   fw_setenv cmid $qcmid; fi
 if [ "$qcmkey" != "$(getenv cmkey)" ]; then
   fw_setenv cmkey $qcmkey; fi
+
+if [ "$qwifif" != "$(getenv wifif)" ]; then
+  fw_setenv wifif $qwifif; fi
+if [ "$qcmidf" != "$(getenv cmidf)" ]; then
+  fw_setenv cmidf $qcmidf; fi
+if [ "$qcmkeyf" != "$(getenv cmkeyf)" ]; then
+  fw_setenv cmkeyf $qcmkeyf; fi
+
 if [ "$qamkey" != "$(getenv amkey)" ]; then
   fw_setenv amkey $qamkey;
   npsk="psk=\"$qamkey\"";
+
   sed -i '8d' /etc/wpa_supplicant.conf
   sed -i "8i \\$npsk" /etc/wpa_supplicant.conf
 fi
@@ -242,14 +282,14 @@ if [ "$qdelay_lt" != "$(getenv delay-lt)" ]; then
   fw_setenv delay-lt $qdelay_lt; fi
 
 if [ "$snap" == "1" ]; then
-  cssid="gk300-$(gmnum)-$(getenv apname)";
+  cssid="$(getenv soc)-$(gmnum)-$(getenv apname)";
   nssid="ssid=\"$cssid\"";
   sed -i '5d' /etc/wpa_supplicant.conf
   sed -i "5i \\$nssid" /etc/wpa_supplicant.conf
   echo $cssid > /etc/hostname
 fi
 date -s "$qnewdat" > /dev/null 
-hwclock -w > /dev/null
+#hwclock -w > /dev/null
 #echo "$qauto_focus <br>";
 #echo "$qlight_control<br>";
 #echo "$qfocus_in<br>";
@@ -265,6 +305,14 @@ hwclock -w > /dev/null
 #echo "$qlight_port<br>";
 #echo "$qlight_threshold<br>";
 #echo "$qnewdat<br>";
+#echo "---------------------------------------------------";
+#echo "$qap_mode<br>";
+#echo "$qcmid<br>";
+#echo "$qcmkey<br>";
+#echo "$qwifif<br>";
+#echo "$qcmidf<br>";
+#echo "$qcmkeyf<br>";
+
 redirect_to "/cgi-bin/fl-settings.cgi"
 %>
 
